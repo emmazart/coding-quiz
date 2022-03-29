@@ -5,19 +5,11 @@ var quizQuestion = document.querySelector("#quiz-question");
 // select intro paragraph to dynamically hide
 var introP = document.querySelector("#intro-p");
 // select button group container
-var buttonGroup = document.querySelector("#button-group");
+var buttonGroupEl = document.getElementById("button-group");
 var quizTimeP = document.getElementById("countdown");
 var quizContainer = document.getElementById("quiz-container");
 
-// write quiz questions as nested objects
-// var questionA = {
-//     question: 'What is your name?',
-//     answer: {
-//         correct: 'Emma',
-//         incorrect: 'Hannah'    
-//     }
-// };
-
+// all questions writted as objects within objects, contain 3 incorrect answers
 var questionA = {
     question: 'What is your name?',
     answer: {
@@ -28,6 +20,7 @@ var questionA = {
 }};
 
 
+// while timer > 1 and number of questions < 10
 
 var loadQuestion = function() {
     // load first question
@@ -41,20 +34,44 @@ var loadQuestion = function() {
     for (i = 0; i < questionALength; i++){
         var buttonA = document.createElement("input");
         buttonA.type = "submit";
-        buttonA.className = "btn btn-primary";
+        buttonA.className = "btn btn-primary btn-dynamic";
         buttonA.value = answerA[i];
-        buttonGroup.appendChild(buttonA);
+        buttonGroupEl.appendChild(buttonA);
     }
+
+    // var buttonDynamicEl = document.querySelector(".btn-dynamic");  
+    // console.log(buttonA.className);  
+
+    // var clickConfirm = function (){
+    //     console.log("click");
+    // };
+
+    // buttonGroupEl.addEventListener("click", buttonDynamicEl, function(){
+    //     console.log("CLICK");
+    // });
 };
 
-// while timer > 1 and number of questions < 10 (or whatever)
+// reference: https://javascript.info/event-delegation
+buttonGroupEl.onclick = function(event){
+    let target = event.target;
+    if (target.className === 'btn btn-primary btn-dynamic'){
+        console.log("CLICK");
+        console.log(event.target);
+    }
+    // on click of any button next question loads
+    // if previous question is correct (if button value = correct answer)
+    // display Correct! with top border
+    // else 
+    // display Incorrect! with top border 
+    // deduct 10 seconds for penalty
 
-// on click of any button, next question loads
-// if previous question is right (if button value = correct answer)
-// display Correct! with top border
-// else 
-// display Incorrect! with top border 
-// deduct 10 seconds for penalty
+};
+
+// check if we have the right answer
+console.log(questionA.answer.correct);
+// check if equal to the value of the event target?
+
+
 
 //use localstorage to log highscores
 
