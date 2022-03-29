@@ -33,4 +33,16 @@ div > p {
 
 #button-group {
     padding: 5px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.btn {
+    margin: 10px;
+    width: 60%;
+}
+
+.btn-primary:hover {
+    background-color: #83AAFF;
 }
