@@ -8,6 +8,10 @@ var introP = document.querySelector("#intro-p");
 var buttonGroupEl = document.getElementById("button-group");
 var quizTimeP = document.getElementById("countdown");
 var quizContainer = document.getElementById("quiz-container");
+var ansCorrectEl = document.getElementById("ans-correct");
+var ansIncorrectEL = document.getElementById("ans-incorrect");
+
+var timeLeft = 75;
 
 // all questions writted as objects within objects, contain 3 incorrect answers
 var questionA = {
@@ -19,6 +23,14 @@ var questionA = {
         incorrect3: ["Charlie"]
 }};
 
+var questionB = {
+    question: 'Commonly used data types do NOT include:',
+    answer: {
+        correct: ['Alerts'],
+        incorrect1: ['Numbers'],
+        incorrect2: ['Booleans'],
+        incorrect3: ['Strings']
+}};
 
 // while timer > 1 and number of questions < 10
 
@@ -38,17 +50,6 @@ var loadQuestion = function() {
         buttonA.value = answerA[i];
         buttonGroupEl.appendChild(buttonA);
     }
-
-    // var buttonDynamicEl = document.querySelector(".btn-dynamic");  
-    // console.log(buttonA.className);  
-
-    // var clickConfirm = function (){
-    //     console.log("click");
-    // };
-
-    // buttonGroupEl.addEventListener("click", buttonDynamicEl, function(){
-    //     console.log("CLICK");
-    // });
 };
 
 // reference: https://javascript.info/event-delegation
@@ -56,28 +57,26 @@ buttonGroupEl.onclick = function(event){
     let target = event.target;
     if (target.className === 'btn btn-primary btn-dynamic'){
         console.log("CLICK");
-        console.log(event.target);
+        // if previous question is correct (if button value = correct answer)
+        if (event.target.value === questionA.answer.correct[0]){
+            // display Correct! with top border
+            console.log("CORRECT")
+            ansCorrectEl.style.display = "block";
+        } 
+        else {
+            // display Incorrect! with top border 
+            ansIncorrectEL.style.display = "block";
+            // deduct 10 seconds for penalty
+            timeLeft = (timeLeft - 10);
+        }
+
     }
-    // on click of any button next question loads
-    // if previous question is correct (if button value = correct answer)
-    // display Correct! with top border
-    // else 
-    // display Incorrect! with top border 
-    // deduct 10 seconds for penalty
-
 };
-
-// check if we have the right answer
-console.log(questionA.answer.correct);
-// check if equal to the value of the event target?
-
-
 
 //use localstorage to log highscores
 
 // define countdown function
 function countdown () {
-    var timeLeft = 75;
 
     var timeInterval = setInterval(function() {
         if (timeLeft >= 1) {
