@@ -129,6 +129,7 @@ var endQuiz = function() {
     // add event listener for submit button
     submit.addEventListener("click", function(event) {
     localStorage.setItem(inputInitials.value, userScore);
+    //also this takes you to the highscore page
 });
 
 
