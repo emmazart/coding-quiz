@@ -12,10 +12,6 @@ header {
     justify-content: space-between;
 }
 
-#highscores {
-    display: none;
-}
-
 main {
     display: flex;
     text-align: center;
@@ -66,4 +62,14 @@ div > p {
 
 #highscore {
     background-color: #83AAFF;
+}
+
+#highscores {
+    display: none;
+}
+
+#highscore-clear {
+    display: none;
+    text-align: center;
+    font-style: italic;
 }

@@ -8,7 +8,6 @@ var quizContainer = document.getElementById("quiz-container"); // holds all quiz
 var ansCorrectEl = document.getElementById("ans-correct");
 var ansIncorrectEL = document.getElementById("ans-incorrect");
 
-var numberHighScores = 5;
 var highscores = "highscores";
 var highscoresArr = [];
 var highscoreHeaderEl = document.getElementById("highscore-header");
@@ -20,7 +19,15 @@ var timeLeft = 75;
 var timerCountdown;
 
 var backEl = document.querySelector("#btn-back");
-var clearEl = document.getElementById("btn-clear");
+var clearEl = document.querySelector("#btn-clear");
+
+// // populate text content of high score list
+// var scoreOne = document.getElementById("1");
+// var scoreTwo = document.getElementById("2");
+// var scoreThree = document.getElementById("3");
+// var scoreFour = document.getElementById("4");
+// var scoreFive = document.getElementById("5");
+
 
 // ----------- DECLARE GLOBAL VARIABLES END ---------- //
 
@@ -35,13 +42,14 @@ let quizQuestionsArr = [
   {
     question: "Commonly used data types do NOT include:",
     answer: ["Numbers", "Alerts", "Booleans", "Strings"],
-    correct: "Alerts"
+    correct: "Alerts",
   },
   {
-    question: "The condition in an if/else statement is enclosed with ___________.",
+    question:
+      "The condition in an if/else statement is enclosed with ___________.",
     answer: ["Parenthesis", "Curly Brackets", "Square Brackets", "Quotes"],
-    correct: "Parenthesis"
-  }
+    correct: "Parenthesis",
+  },
 ];
 // ---------- QUIZ QUESTIONS ARRAY ENDS ---------- //
 
@@ -89,89 +97,125 @@ var loadQuestion = function () {
       // check to see if the quiz is over
       checkEndQuiz();
     }
-  }
+  };
 };
 
 // ---------- CHECK IF WE NEED TO END THE QUIZ ---------- //
-var checkEndQuiz = function() {
-    if (currentQuestionIndex === quizQuestionsArr.length){
-        endQuiz();
-    }
-    else if (timeLeft < 1){
-        endQuiz();
-    }
-    else {
-        loadQuestion();
-    }
+var checkEndQuiz = function () {
+  if (currentQuestionIndex === quizQuestionsArr.length) {
+    endQuiz();
+  } else if (timeLeft < 1) {
+    endQuiz();
+  } else {
+    loadQuestion();
+  }
 };
 
 // ---------- DEFINE END QUIZ FUNCTION ----------- //
-var endQuiz = function() {
-    var userScore = timeLeft;
-    timeLeft = 0;
-    buttonGroupEl.innerHTML = ""; // clears buttonGroupEl
-    quizQuestion.textContent = "All done!";
-    introP.innerHTML = "<p id='intro-p'>Your Final Score is " + userScore + ". <br/> Please enter your initials to save your highscore. </p>";
-    introP.style.display = "block"
+var endQuiz = function () {
+  var userScore = timeLeft;
+  timeLeft = 0;
+  buttonGroupEl.innerHTML = ""; // clears buttonGroupEl
+  quizQuestion.textContent = "All done!";
+  introP.innerHTML =
+    "<p id='intro-p'>Your Final Score is " +
+    userScore +
+    ". <br/> Please enter your initials to save your highscore. </p>";
+  introP.style.display = "block";
 
-    // create form inputs for saving high scores
-    var inputInitials = document.createElement("input");
-    var submit = document.createElement("input");
-    submit.type = "submit";
-    submit.className = "btn btn-primary";
-    submit.style.width = "20%";
-    inputInitials.style.width = "60%";
-    inputInitials.type = "text";
-    inputInitials.id = "input-initials";
+  // create form inputs for saving high scores
+  var inputInitials = document.createElement("input");
+  var submit = document.createElement("input");
+  submit.type = "submit";
+  submit.className = "btn btn-primary";
+  submit.style.width = "20%";
+  inputInitials.style.width = "60%";
+  inputInitials.type = "text";
+  inputInitials.id = "input-initials";
 
-    // append & style new input form
-    buttonGroupEl.appendChild(inputInitials);
-    buttonGroupEl.appendChild(submit);
-    buttonGroupEl.style.flexDirection = "row";
+  // append & style new input form
+  buttonGroupEl.appendChild(inputInitials);
+  buttonGroupEl.appendChild(submit);
+  buttonGroupEl.style.flexDirection = "row";
 
-    // capture user input
-    inputInitials.addEventListener("blur", function(){
-    });
+  // capture user input
+  inputInitials.addEventListener("blur", function () {});
 
-    // event listener for submit button 
-    submit.addEventListener("click", function(event) {
-        // create object to hold new score
-        var userInput = inputInitials.value;
-        var newScore = userInput + " - " + userScore;
-        var scoreListItemElOne = document.getElementById("1");
+  // event listener for submit button
+  submit.addEventListener("click", function (event) {
+    // create object to hold new score
+    var userInput = inputInitials.value;
+    var newScore = userScore + " - " + userInput;
+    var scoreListItemElOne = document.getElementById("1");
 
-        // display highscores list & hide other elements
-        highscoreSec.className = "d-flex justify-content-center";
-        ansCorrectEl.style.display = "none";
-        ansIncorrectEL.style.display = "none";
-        buttonGroupEl.style.display = "none";
+    // display highscores list & hide other elements
+    highscoreSec.className = "d-flex justify-content-center";
+    ansCorrectEl.style.display = "none";
+    ansIncorrectEL.style.display = "none";
+    buttonGroupEl.style.display = "none";
 
-        // check if highscores already exists in local storage
-        if (!localStorage.getItem("highscores")){            
-            //add new score to new high scores array
-            highscoresArr.push(newScore);
-            localStorage.setItem(highscores, JSON.stringify(highscoresArr));
+    // check if highscores already exists in local storage
+    if (!localStorage.getItem("highscores")) {
+      //add new score to new high scores array
+      highscoresArr.push(newScore);
+      localStorage.setItem(highscores, JSON.stringify(highscoresArr));
 
-            // add new score to highscores page
-            scoreListItemElOne.textContent = newScore;
-        }
-        else {
-            // retrieve current local storage item
-            var lsHighscores = JSON.parse(localStorage.getItem("highscores"))
-            //add new score to high scores array & send back to local storage
-            lsHighscores.push(newScore);
-            localStorage.setItem(highscores, JSON.stringify(lsHighscores));
-
-            // iterate through ls highscores to populate text content of high score list
-            for (i = 0; i < numberHighScores; i++){
-                // sort the array 
-                // chop off the end until we have 5 
-                // print those 5 to the page
-            }
-        }
-
-    });
+      // add new score to highscores page
+      scoreListItemElOne.textContent = newScore;
+    } else {
+              // retrieve current local storage item
+              var lsHighscores = JSON.parse(localStorage.getItem("highscores"));
+              //add new score to high scores array & send back to local storage
+              lsHighscores.push(newScore);
+              localStorage.setItem(highscores, JSON.stringify(lsHighscores));
+        
+              // sort highscores array in descending order
+              var sorted = lsHighscores.sort();
+              var reversed = sorted.reverse();
+        
+              // populate text content of high score list
+              var scoreOne = document.getElementById("1");
+              var scoreTwo = document.getElementById("2");
+              var scoreThree = document.getElementById("3");
+              var scoreFour = document.getElementById("4");
+              var scoreFive = document.getElementById("5");
+        
+              scoreOne.textContent = reversed[0];
+              scoreTwo.textContent = reversed[1];
+              scoreThree.textContent = reversed[2];
+              scoreFour.textContent = reversed[3];
+              scoreFive.textContent = reversed[4];
+      
+    }
+  });
 };
+
+// var retrieveScores = function (){
+//         // retrieve current local storage item
+//         var lsHighscores = JSON.parse(localStorage.getItem("highscores"));
+//         //add new score to high scores array & send back to local storage
+//         lsHighscores.push(newScore);
+//         localStorage.setItem(highscores, JSON.stringify(lsHighscores));
+  
+//         // sort highscores array in descending order
+//         var sorted = lsHighscores.sort();
+//         var reversed = sorted.reverse();
+  
+//         // populate text content of high score list
+//         var scoreOne = document.getElementById("1");
+//         var scoreTwo = document.getElementById("2");
+//         var scoreThree = document.getElementById("3");
+//         var scoreFour = document.getElementById("4");
+//         var scoreFive = document.getElementById("5");
+  
+//         scoreOne.textContent = reversed[0];
+//         scoreTwo.textContent = reversed[1];
+//         scoreThree.textContent = reversed[2];
+//         scoreFour.textContent = reversed[3];
+//         scoreFive.textContent = reversed[4];
+  
+// }
+
 
 
 // ---------- FUNCTIONS FOR LOADING & VALIDATING FIRST ANSWER ---------- //
@@ -223,7 +267,7 @@ var validateFirstAnswer = function () {
 // ---------- END FIRST QUESTION ---------- //
 
 // ---------- DEFINE COUNTDOWN FUNCTION ---------- //
-var timerCountdown = function() {
+var timerCountdown = function () {
   // start & display the timer as long as there is time left
   var timeInterval = setInterval(function () {
     if (timeLeft >= 1) {
@@ -240,7 +284,7 @@ var timerCountdown = function() {
 
   // call loadQuestion function to begin quiz
   loadFirstQuestion();
-}
+};
 
 // ---------- EVENT LISTENERS ---------- //
 
@@ -249,17 +293,24 @@ buttonOriginal.addEventListener("click", timerCountdown);
 
 // event listener for hiding & unhiding high scores list
 highscoreHeaderEl.addEventListener("click", function () {
-  if (highscoreListEl.style.display === "block") {
-    highscoreListEl.style.display = "none";
+  console.log("click");
+  if (highscoreSec.style.display === "block") {
+    highscoreSec.style.display = "none";
   } else {
-    highscoreListEl.style.display = "block";
+    highscoreSec.style.display = "block";
   }
 });
 
+// event listener for high scores page "go back"
+backEl.onclick = function (event) {
+  console.log("click");
+  location.href = "./index.html";
+};
 
-
-
-
-
-        // also this takes you to the highscore page
-        // location.href = "./highscore.html";
+// event listener for clear high scores
+clearEl.onclick = function (event) {
+  localStorage.clear();
+  highscoreListEl.innerHTML = "";
+  let clear = document.getElementById("highscore-clear");
+  clear.style.display = "block";
+};
