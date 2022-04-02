@@ -21,14 +21,6 @@ var timerCountdown;
 var backEl = document.querySelector("#btn-back");
 var clearEl = document.querySelector("#btn-clear");
 
-// // populate text content of high score list
-// var scoreOne = document.getElementById("1");
-// var scoreTwo = document.getElementById("2");
-// var scoreThree = document.getElementById("3");
-// var scoreFour = document.getElementById("4");
-// var scoreFive = document.getElementById("5");
-
-
 // ----------- DECLARE GLOBAL VARIABLES END ---------- //
 
 // ---------- DECLARE QUIZQUESTIONS ARRAY ---------- //
@@ -52,6 +44,28 @@ let quizQuestionsArr = [
   },
 ];
 // ---------- QUIZ QUESTIONS ARRAY ENDS ---------- //
+
+// ---------- POPULATE HIGH SCORES LIST ON PAGE LOAD ---------- //
+var populateHighscore = function() {
+var lsHighscores = JSON.parse(localStorage.getItem("highscores"));
+
+// sort highscores array in descending order
+var sorted = lsHighscores.sort();
+var reversed = sorted.reverse();
+
+// populate text content of high score list
+var scoreOne = document.getElementById("1");
+var scoreTwo = document.getElementById("2");
+var scoreThree = document.getElementById("3");
+var scoreFour = document.getElementById("4");
+var scoreFive = document.getElementById("5");
+
+scoreOne.textContent = reversed[0];
+scoreTwo.textContent = reversed[1];
+scoreThree.textContent = reversed[2];
+scoreFour.textContent = reversed[3];
+scoreFive.textContent = reversed[4];
+}
 
 // ---------- DEFINE LOAD QUESTION TO RUN THROUGH QUIZ QUESTIONS ARRAY ---------- //
 var loadQuestion = function () {
@@ -163,60 +177,31 @@ var endQuiz = function () {
       // add new score to highscores page
       scoreListItemElOne.textContent = newScore;
     } else {
-              // retrieve current local storage item
-              var lsHighscores = JSON.parse(localStorage.getItem("highscores"));
-              //add new score to high scores array & send back to local storage
-              lsHighscores.push(newScore);
-              localStorage.setItem(highscores, JSON.stringify(lsHighscores));
-        
-              // sort highscores array in descending order
-              var sorted = lsHighscores.sort();
-              var reversed = sorted.reverse();
-        
-              // populate text content of high score list
-              var scoreOne = document.getElementById("1");
-              var scoreTwo = document.getElementById("2");
-              var scoreThree = document.getElementById("3");
-              var scoreFour = document.getElementById("4");
-              var scoreFive = document.getElementById("5");
-        
-              scoreOne.textContent = reversed[0];
-              scoreTwo.textContent = reversed[1];
-              scoreThree.textContent = reversed[2];
-              scoreFour.textContent = reversed[3];
-              scoreFive.textContent = reversed[4];
-      
+      // retrieve current local storage item
+      var lsHighscores = JSON.parse(localStorage.getItem("highscores"));
+      //add new score to high scores array & send back to local storage
+      lsHighscores.push(newScore);
+      localStorage.setItem(highscores, JSON.stringify(lsHighscores));
+
+      // sort highscores array in descending order
+      var sorted = lsHighscores.sort();
+      var reversed = sorted.reverse();
+
+      // populate text content of high score list
+      var scoreOne = document.getElementById("1");
+      var scoreTwo = document.getElementById("2");
+      var scoreThree = document.getElementById("3");
+      var scoreFour = document.getElementById("4");
+      var scoreFive = document.getElementById("5");
+
+      scoreOne.textContent = reversed[0];
+      scoreTwo.textContent = reversed[1];
+      scoreThree.textContent = reversed[2];
+      scoreFour.textContent = reversed[3];
+      scoreFive.textContent = reversed[4];
     }
   });
 };
-
-// var retrieveScores = function (){
-//         // retrieve current local storage item
-//         var lsHighscores = JSON.parse(localStorage.getItem("highscores"));
-//         //add new score to high scores array & send back to local storage
-//         lsHighscores.push(newScore);
-//         localStorage.setItem(highscores, JSON.stringify(lsHighscores));
-  
-//         // sort highscores array in descending order
-//         var sorted = lsHighscores.sort();
-//         var reversed = sorted.reverse();
-  
-//         // populate text content of high score list
-//         var scoreOne = document.getElementById("1");
-//         var scoreTwo = document.getElementById("2");
-//         var scoreThree = document.getElementById("3");
-//         var scoreFour = document.getElementById("4");
-//         var scoreFive = document.getElementById("5");
-  
-//         scoreOne.textContent = reversed[0];
-//         scoreTwo.textContent = reversed[1];
-//         scoreThree.textContent = reversed[2];
-//         scoreFour.textContent = reversed[3];
-//         scoreFive.textContent = reversed[4];
-  
-// }
-
-
 
 // ---------- FUNCTIONS FOR LOADING & VALIDATING FIRST ANSWER ---------- //
 var loadFirstQuestion = function () {
@@ -294,10 +279,13 @@ buttonOriginal.addEventListener("click", timerCountdown);
 // event listener for hiding & unhiding high scores list
 highscoreHeaderEl.addEventListener("click", function () {
   console.log("click");
+  populateHighscore();
   if (highscoreSec.style.display === "block") {
     highscoreSec.style.display = "none";
+    highscoreSec.className = "pt-5";
   } else {
     highscoreSec.style.display = "block";
+    highscoreSec.className = "d-flex justify-content-center";
   }
 });
 

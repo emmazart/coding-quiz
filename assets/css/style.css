@@ -47,7 +47,7 @@ div > p {
 
 .btn:hover {
     background-color: #83AAFF;
-    border: none;
+    border: 1px solid #83AAFF;
 }
 
 .validate {
@@ -60,7 +60,7 @@ div > p {
     padding-top: 5px;
 }
 
-#highscore {
+#highscore-list {
     background-color: #83AAFF;
 }
 
