@@ -9,12 +9,14 @@ var ansCorrectEl = document.getElementById("ans-correct");
 var ansIncorrectEL = document.getElementById("ans-incorrect");
 
 var numberHighScores = 5;
-var highscore = "highscore";
+var highscores = "highscores";
+var highscoresArr = [];
 var highscoreHeaderEl = document.getElementById("highscore-header");
 var highscoreListEl = document.getElementById("highscore-list");
 var currentQuestionIndex = 0; // for manually iterating through quiz aqusetions array
 
 var timeLeft = 75;
+var timerCountdown;
 
 var backEl = document.querySelector("#btn-back");
 var clearEl = document.getElementById("btn-clear");
@@ -120,7 +122,6 @@ var endQuiz = function() {
     inputInitials.style.width = "60%";
     inputInitials.type = "text";
     inputInitials.id = "input-initials";
-    inputInitials.value = "";
 
     // append & style new input form
     buttonGroupEl.appendChild(inputInitials);
@@ -131,18 +132,38 @@ var endQuiz = function() {
     inputInitials.addEventListener("blur", function(){
     });
 
-    // const newScore = {inputInitials.value, userScore}
-
-    // event listener for submit button
+    // event listener for submit button 
     submit.addEventListener("click", function(event) {
-        // set user input and score to local storage
+        // create object to hold new score
         var userInput = inputInitials.value;
-        const newScore = {userInput, userScore}
-        console.log(newScore);
+        var newScore = userInput + " - " + userScore;
 
-        localStorage.setItem(highscore, JSON.stringify(newScore));
+        // check if highscores already exists in local storage
+        if (!localStorage.getItem("highscores")){            
+            //add new score to new high scores array
+            highscoresArr.push(newScore);
+            localStorage.setItem(highscores, JSON.stringify(highscoresArr));
+        }
+        else {
+            // retrieve current local storage item
+            var lsHighscores = JSON.parse(localStorage.getItem("highscores"))
+            //add new score to high scores array & send back to local storage
+            lsHighscores.push(newScore);
+            localStorage.setItem(highscores, JSON.stringify(lsHighscores));
+        }
+
+        // also this takes you to the highscore page
+        // location.href = "./highscore.html";
+
+        for (i = 0; i < numberHighScores; i++)
+            var scoreListItemEl = document.createElement("li");
+            scoreListItemEl.textContent = retrieveScoresArr[0]
+            highscoreListEl.appendChild(scoreListItemEl);
+            retrieveScoresArr++
+
 
     });
+
 
 
 
@@ -166,8 +187,6 @@ var endQuiz = function() {
 //     // console.log(listitem);
 //     // localStorage.setItem(highscoreKey, JSON.stringify(inputInitials.value + " " + userScore));
 //     // highscoreKey++
-//     //also this takes you to the highscore page
-//     // location.href = "./highscore.html";
 
 //     // populate high score list
 // });
@@ -223,7 +242,7 @@ var validateFirstAnswer = function () {
 // ---------- END FIRST QUESTION ---------- //
 
 // ---------- DEFINE COUNTDOWN FUNCTION ---------- //
-function countdown() {
+var timerCountdown = function() {
   // start & display the timer as long as there is time left
   var timeInterval = setInterval(function () {
     if (timeLeft >= 1) {
@@ -245,7 +264,7 @@ function countdown() {
 // ---------- EVENT LISTENERS ---------- //
 
 // event listener for start quiz button
-buttonOriginal.addEventListener("click", countdown);
+buttonOriginal.addEventListener("click", timerCountdown);
 
 // event listener for hiding & unhiding high scores list
 highscoreHeaderEl.addEventListener("click", function () {
