@@ -12,6 +12,7 @@ var numberHighScores = 5;
 var highscores = "highscores";
 var highscoresArr = [];
 var highscoreHeaderEl = document.getElementById("highscore-header");
+var highscoreSec = document.getElementById("highscores");
 var highscoreListEl = document.getElementById("highscore-list");
 var currentQuestionIndex = 0; // for manually iterating through quiz aqusetions array
 
@@ -137,12 +138,22 @@ var endQuiz = function() {
         // create object to hold new score
         var userInput = inputInitials.value;
         var newScore = userInput + " - " + userScore;
+        var scoreListItemElOne = document.getElementById("1");
+
+        // display highscores list & hide other elements
+        highscoreSec.className = "d-flex justify-content-center";
+        ansCorrectEl.style.display = "none";
+        ansIncorrectEL.style.display = "none";
+        buttonGroupEl.style.display = "none";
 
         // check if highscores already exists in local storage
         if (!localStorage.getItem("highscores")){            
             //add new score to new high scores array
             highscoresArr.push(newScore);
             localStorage.setItem(highscores, JSON.stringify(highscoresArr));
+
+            // add new score to highscores page
+            scoreListItemElOne.textContent = newScore;
         }
         else {
             // retrieve current local storage item
@@ -150,46 +161,16 @@ var endQuiz = function() {
             //add new score to high scores array & send back to local storage
             lsHighscores.push(newScore);
             localStorage.setItem(highscores, JSON.stringify(lsHighscores));
+
+            // iterate through ls highscores to populate text content of high score list
+            for (i = 0; i < numberHighScores; i++){
+                // sort the array 
+                // chop off the end until we have 5 
+                // print those 5 to the page
+            }
         }
 
-        // also this takes you to the highscore page
-        // location.href = "./highscore.html";
-
-        for (i = 0; i < numberHighScores; i++)
-            var scoreListItemEl = document.createElement("li");
-            scoreListItemEl.textContent = retrieveScoresArr[0]
-            highscoreListEl.appendChild(scoreListItemEl);
-            retrieveScoresArr++
-
-
     });
-
-
-
-
-//     const newScore = {
-//         user: user,
-//         score: userScore
-//     };
-
-//     // var highscoreKey = "highscore";
-//     // add event listener for submit button
-//     submit.addEventListener("click", function(event) {
-//         localStorage.setItem(highscores, JSON.stringify(newScore));
-
-//         const highScoreString = localStorage.getItem(highScores);
-//         const highScores = JSON.parse(highScoreString) ?? [];
-
-
-
-        
-//     // var listitem = localStorage.getItem('highscore');
-//     // console.log(listitem);
-//     // localStorage.setItem(highscoreKey, JSON.stringify(inputInitials.value + " " + userScore));
-//     // highscoreKey++
-
-//     // populate high score list
-// });
 };
 
 
@@ -274,3 +255,11 @@ highscoreHeaderEl.addEventListener("click", function () {
     highscoreListEl.style.display = "block";
   }
 });
+
+
+
+
+
+
+        // also this takes you to the highscore page
+        // location.href = "./highscore.html";

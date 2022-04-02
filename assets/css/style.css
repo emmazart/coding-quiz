@@ -12,6 +12,10 @@ header {
     justify-content: space-between;
 }
 
+#highscores {
+    display: none;
+}
+
 main {
     display: flex;
     text-align: center;

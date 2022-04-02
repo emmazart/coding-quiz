@@ -10,3 +10,8 @@ clearEl.onClick = function(event) {
     highscoreListEl.innerHTML = ""; // clears highscoreListEl
 };
 
+//  // add new score to highscores page
+// scoreListItemEl.textContent = "newScore";
+// highscoreListEl.appendChild(scoreListItemEl);
+
+
