@@ -8,11 +8,16 @@ var quizContainer = document.getElementById("quiz-container"); // holds all quiz
 var ansCorrectEl = document.getElementById("ans-correct");
 var ansIncorrectEL = document.getElementById("ans-incorrect");
 
+var numberHighScores = 5;
+var highscore = "highscore";
 var highscoreHeaderEl = document.getElementById("highscore-header");
 var highscoreListEl = document.getElementById("highscore-list");
 var currentQuestionIndex = 0; // for manually iterating through quiz aqusetions array
 
 var timeLeft = 75;
+
+var backEl = document.querySelector("#btn-back");
+var clearEl = document.getElementById("btn-clear");
 
 // ----------- DECLARE GLOBAL VARIABLES END ---------- //
 
@@ -117,25 +122,57 @@ var endQuiz = function() {
     inputInitials.id = "input-initials";
     inputInitials.value = "";
 
+    // append & style new input form
     buttonGroupEl.appendChild(inputInitials);
     buttonGroupEl.appendChild(submit);
     buttonGroupEl.style.flexDirection = "row";
 
     // capture user input
     inputInitials.addEventListener("blur", function(){
-        console.log(inputInitials.value);
     });
 
-    // add event listener for submit button
+    // const newScore = {inputInitials.value, userScore}
+
+    // event listener for submit button
     submit.addEventListener("click", function(event) {
-    localStorage.setItem(inputInitials.value, userScore);
-    //also this takes you to the highscore page
-});
+        // set user input and score to local storage
+        var userInput = inputInitials.value;
+        const newScore = {userInput, userScore}
+        console.log(newScore);
+
+        localStorage.setItem(highscore, JSON.stringify(newScore));
+
+    });
 
 
+
+//     const newScore = {
+//         user: user,
+//         score: userScore
+//     };
+
+//     // var highscoreKey = "highscore";
+//     // add event listener for submit button
+//     submit.addEventListener("click", function(event) {
+//         localStorage.setItem(highscores, JSON.stringify(newScore));
+
+//         const highScoreString = localStorage.getItem(highScores);
+//         const highScores = JSON.parse(highScoreString) ?? [];
+
+
+
+        
+//     // var listitem = localStorage.getItem('highscore');
+//     // console.log(listitem);
+//     // localStorage.setItem(highscoreKey, JSON.stringify(inputInitials.value + " " + userScore));
+//     // highscoreKey++
+//     //also this takes you to the highscore page
+//     // location.href = "./highscore.html";
+
+//     // populate high score list
+// });
 };
 
-//use localstorage to log highscores
 
 // ---------- FUNCTIONS FOR LOADING & VALIDATING FIRST ANSWER ---------- //
 var loadFirstQuestion = function () {
