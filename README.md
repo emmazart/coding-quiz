@@ -52,6 +52,6 @@ This application also utilizes Bootstrap style classes.
 The following screenshots are of the page (1) upon load, (2) after the start button has been clicked, (3) after the last question has been answered, and (4) after the user hits submit on their initials
 
 ![Screenshot of page on load](./assets/images/screenshot-1.png)
-![Screenshot of page after start button is clicked]
+![Screenshot of page after start button is clicked](./assets/images/screenshot-2.png)
 ![Screenshot of page after last question has been answered](./assets/images/screenshot-initials.png)
 ![Screenshot of page after initials are submitted](./assets/images/screenshot-highscore.png)
