@@ -26,7 +26,7 @@ var clearEl = document.querySelector("#btn-clear");
 // ---------- DECLARE QUIZQUESTIONS ARRAY ---------- //
 var questionA = {
   question: "How do we reference our JavaScript file in HTML?",
-  answer: ["<scripting>", "<js>", "<javascript>", "<script>"],
+  answer: ["<script>", "<js>", "<javascript>", "<scripting>"],
   correct: "<script>",
 };
 
