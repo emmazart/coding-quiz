@@ -25,9 +25,9 @@ var clearEl = document.querySelector("#btn-clear");
 
 // ---------- DECLARE QUIZQUESTIONS ARRAY ---------- //
 var questionA = {
-  question: "What is your name?",
-  answer: ["Emma", "Hannah", "Abby", "Charlie"],
-  correct: "Emma",
+  question: "How do we reference our JavaScript file in HTML?",
+  answer: ["<scripting>", "<js>", "<javascript>", "<script>"],
+  correct: "<script>",
 };
 
 let quizQuestionsArr = [
@@ -41,6 +41,41 @@ let quizQuestionsArr = [
     answer: ["Parenthesis", "Curly Brackets", "Square Brackets", "Quotes"],
     correct: "Parenthesis",
   },
+  {
+    question: "How does a 'for' loop start?",
+    answer: ["for (i = 0; i <= 5)", "for (i = 0; i <= 5; i++)", "for i = 1 to 5", "for (i <= 5; i++)"],
+    correct: "for (i = 0; i <= 5; i++)",
+  },
+  {
+    question: "How do you add a comment in JavaScript?",
+    answer: ["'This is a comment", "<!--This is a comment-->", "//This is a comment", "#This is a comment"],
+    correct: "//This is a comment",
+  },
+  {
+    question: "In JavaScript, the following loop will execute ____ times: for (x = 0; x < 10; x++",
+    answer: ["9", "10", "11", "cannot tell from this portion of the script"],
+    correct: "10",
+  },
+  {
+    question: "In JavaScript, the symbols + - * and / are:",
+    answer: ["Operators", "Expressions", "Functions", "Comparison Operators"],
+    correct: "Operators",
+  },
+  {
+    question: "The expression x!=y returns false if:",
+    answer: ["The variables are equal", "x is less than y", "The variables are not equal", "None of the above"],
+    correct: "The variables are equal",
+  },
+  {
+    question: "Alert(message), close(), and reset() are JavaScript ______.",
+    answer: ["Objects", "Properties", "Commands", "Methods"],
+    correct: "Methods",
+  },
+  {
+    question: "String values must be enclosed within ________ when being assigned to variables.",
+    answer: ["Commas", "Curly brackets", "Quotes", "Parenthesis"],
+    correct: "Quotes",
+  }
 ];
 // ---------- QUIZ QUESTIONS ARRAY ENDS ---------- //
 
