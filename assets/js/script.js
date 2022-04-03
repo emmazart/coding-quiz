@@ -37,8 +37,7 @@ let quizQuestionsArr = [
     correct: "Alerts",
   },
   {
-    question:
-      "The condition in an if/else statement is enclosed with ___________.",
+    question: "The condition in an if/else statement is enclosed with ___________.",
     answer: ["Parenthesis", "Curly Brackets", "Square Brackets", "Quotes"],
     correct: "Parenthesis",
   },
@@ -131,10 +130,7 @@ var endQuiz = function () {
   timeLeft = 0;
   buttonGroupEl.innerHTML = ""; // clears buttonGroupEl
   quizQuestion.textContent = "All done!";
-  introP.innerHTML =
-    "<p id='intro-p'>Your Final Score is " +
-    userScore +
-    ". <br/> Please enter your initials to save your highscore. </p>";
+  introP.innerHTML = "<p id='intro-p'>Your Final Score is " + userScore + ". <br/> Please enter your initials to save your highscore. </p>";
   introP.style.display = "block";
 
   // create form inputs for saving high scores
